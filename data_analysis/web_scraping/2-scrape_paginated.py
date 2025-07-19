@@ -23,6 +23,7 @@ def scrape_paginated(base_url):
     while True:
         # 1) scrape this page
         all_quotes.extend(scrape_basic(url))
+        # print(all_quotes)
 
         # 2) find Next link
         page_html = fetch_html(url, headers={"User-Agent": "scraper"},
@@ -31,6 +32,6 @@ def scrape_paginated(base_url):
         nxt = soup.select_one("li.next > a")
         if not nxt:
             break
-        url = base_url.rstrip("/") + nxt["href"]
+        url = parse.urljoin(url, nxt["href"])
         time.sleep(1)
     return all_quotes

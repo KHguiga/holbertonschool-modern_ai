@@ -4,7 +4,6 @@ Task 2
 """
 from bs4 import BeautifulSoup
 import time
-from urllib import parse
 fetch_html = __import__('0-fetch_html').fetch_html
 scrape_basic = __import__('1-scrape_basic').scrape_basic
 
@@ -23,7 +22,6 @@ def scrape_paginated(base_url):
     while True:
         # 1) scrape this page
         all_quotes.extend(scrape_basic(url))
-        # print(all_quotes)
 
         # 2) find Next link
         page_html = fetch_html(url, headers={"User-Agent": "scraper"},
@@ -32,6 +30,6 @@ def scrape_paginated(base_url):
         nxt = soup.select_one("li.next > a")
         if not nxt:
             break
-        url = parse.urljoin(url, nxt["href"])
+        url = base_url.rstrip("/") + nxt["href"]
         time.sleep(1)
     return all_quotes

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from selenium import common
 from selenium import webdriver
 import time

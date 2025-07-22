@@ -1,47 +1,59 @@
 #!/usr/bin/env python3
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 
 
-def scrape_dynamic_table(url):
+def scrape_dynamic_table(url: str, max_scrolls: int = 10) -> list:
     """
-    Scrapes JS‑rendered laptop listings by scrolling to load all items.
-    Returns: list_of_product_dicts
+    Scrolls dynamic e-commerce page and extracts product titles and prices.
+
+    Returns:
+        list of {"title": ..., "price": ...}
     """
-    opts = webdriver.chrome.options.Options()
-    opts.headless = True
-    driver = webdriver.Chrome(options=opts)
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-gpu")
+
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
 
-    # Scroll until no new content
-    last_height = driver.execute_script("return document.body.scrollHeight")
-    while True:
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-        # wait for new thumbnails
-        webdriver.support.ui.WebDriverWait(driver, 10).until(
-            webdriver.support.expected_conditions.presence_of_element_located(
-                (webdriver.common.by.By.CSS_SELECTOR, "div.thumbnail"))
-        )
-        time.sleep(1)
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        if new_height == last_height:
-            break
-        last_height = new_height
+    try:
+        product_selector = "div.thumbnail"
+        scroll_pause = 2
+        results = []
+        seen = set()
 
-    # Extract products
-    products = []
-    thumbs = driver.find_elements(webdriver.common.by.By.CSS_SELECTOR,
-                                  "div.thumbnail")
-    for th in thumbs:
-        title = th.find_element(
-            webdriver.common.by.By.CSS_SELECTOR,
-            "a.title"
-            ).get_attribute("title")
-        price = th.find_element(
-            webdriver.common.by.By.CSS_SELECTOR,
-            "h4.price"
-            ).text
-        products.append({"title": title, "price": price})
+        for _ in range(max_scrolls):
+            driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(scroll_pause)
 
-    driver.quit()
-    return products
+            # Grab all visible products
+            products = driver.find_elements(By.CSS_SELECTOR, product_selector)
+            current_count = len(products)
+
+            if current_count == len(seen):
+                break  # No new content, stop
+
+            for item in products:
+                try:
+                    title = item.find_element(By.CLASS_NAME,
+                                              "title"
+                                              ).get_attribute("title").strip()
+                    price = item.find_element(By.CLASS_NAME,
+                                              "price"
+                                              ).text.strip()
+                    key = (title, price)
+                    if key not in seen:
+                        seen.add(key)
+                        results.append({"title": title, "price": price})
+                except Exception:
+                    continue
+
+        return results
+
+    finally:
+        driver.quit()

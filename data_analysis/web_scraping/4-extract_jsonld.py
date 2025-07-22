@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Task 4
+"""
 import json
 from bs4 import BeautifulSoup
 fetch_html = __import__('0-fetch_html').fetch_html
@@ -39,4 +43,4 @@ def extract_jsonld(url):
 
             results.append({"text": text, "author": author, "tags": tags})
 
-    return "JSON-LD", results
+    return results

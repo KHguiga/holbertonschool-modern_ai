@@ -7,13 +7,13 @@ from selenium.webdriver.common.by import By
 
 
 def scrape_products_list(url: str, delay: float = 2.0) -> list:
-    opts = Options()
-    opts.add_argument("--headless")
-    opts.add_argument("--no-sandbox")
-    opts.add_argument("--disable-dev-shm-usage")
-    tmp = tempfile.mkdtemp(prefix="selenium-")
-    opts.add_argument(f"--user-data-dir={tmp}")
-    driver = webdriver.Chrome(options=opts)
+    chrome_options = Options()
+    chrome_options.add_argument("--headless=new")  # modern headless mode
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
     time.sleep(delay)  # let static content load
 

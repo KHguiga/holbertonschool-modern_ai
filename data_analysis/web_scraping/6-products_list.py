@@ -11,9 +11,8 @@ def scrape_products_list(url: str, delay: float = 2.0) -> list:
     opts.add_argument("--headless")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
-    # ensure each session has its own user-data-dir
-    temp_dir = tempfile.mkdtemp(prefix="selenium-user-data-")
-    opts.add_argument(f"--user-data-dir={temp_dir}")
+    tmp = tempfile.mkdtemp(prefix="selenium-")
+    opts.add_argument(f"--user-data-dir={tmp}")
     driver = webdriver.Chrome(options=opts)
     driver.get(url)
     time.sleep(delay)  # let static content load

@@ -1,20 +1,32 @@
+#!/usr/bin/env python3
+import time
 from selenium import webdriver
-from selenium.common.exceptions import SessionNotCreatedException, WebDriverException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 
-def make_driver():
-    from selenium.webdriver.chrome.options import Options
+
+def scrape_products(url, delay=2.0):
     opts = Options()
     opts.add_argument("--headless")
-    opts.add_argument("--no-sandbox")
-    opts.add_argument("--disable-dev-shm-usage")
-    opts.add_argument("--disable-gpu")
+    opts.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(options=opts)
+    driver.get(url)
+    time.sleep(delay)  # let static content load
 
-    try:
-        driver = webdriver.Chrome(options=opts)
-        return driver
-    except SessionNotCreatedException as e:
-        print("❌ SessionNotCreatedException:", e.msg)  # detailed ChromeDriver message
-        raise
-    except WebDriverException as e:
-        print("❌ WebDriverException:", e.msg)
-        raise
+    cards = driver.find_elements(By.CSS_SELECTOR, ".thumbnail")
+    results = []
+    for card in cards:
+        title_el = card.find_element(By.CSS_SELECTOR, "a.title")
+        price_el = card.find_element(By.CSS_SELECTOR, "h4.price")
+        desc_el = card.find_element(By.CSS_SELECTOR, "p.description")
+        stars = card.find_elements(By.CSS_SELECTOR, ".ratings .glyphicon-star")
+
+        results.append({
+            "title":       title_el.get_attribute("title").strip(),
+            "price":       price_el.text.strip(),
+            "description": desc_el.text.strip(),
+            "rating":      len(stars),
+        })
+
+    driver.quit()
+    return results

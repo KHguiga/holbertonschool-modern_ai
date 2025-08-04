@@ -11,13 +11,18 @@ def scrape_products(url, delay=2.0):
     driver.get(url)
     time.sleep(delay)  # let static content load
 
-    cards = driver.find_elements(webdriver.common.by.By.CSS_SELECTOR, ".thumbnail")
+    cards = driver.find_elements(webdriver.common.by.By.CSS_SELECTOR,
+                                 ".thumbnail")
     results = []
     for card in cards:
-        title_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR, "a.title")
-        price_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR, "h4.price")
-        desc_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR, "p.description")
-        stars = card.find_elements(webdriver.common.by.By.CSS_SELECTOR, ".ratings .glyphicon-star")
+        title_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                     "a.title")
+        price_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                     "h4.price")
+        desc_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                    "p.description")
+        stars = card.find_elements(webdriver.common.by.By.CSS_SELECTOR,
+                                   ".ratings .glyphicon-star")
 
         results.append({
             "title":       title_el.get_attribute("title").strip(),

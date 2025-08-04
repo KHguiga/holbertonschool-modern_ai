@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 import time
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
 
 
-def scroll_and_scrape(url: str, scroll_pause: float = 2.0) -> list:
+def scroll_and_scrape(url, scroll_pause=2.0):
     """
     Opens an infinite-scroll page, scrolls until fully loaded, and
     scrapes each product's title, price, description, and rating,
     deduplicating by (title, price).
     """
     # 1) Setup headless Chrome
-    opts = Options()
+    opts = webdriver.chrome.options.Options()
     opts.add_argument("--headless")
     opts.add_argument("--no-sandbox")
     driver = webdriver.Chrome(options=opts)
@@ -35,12 +33,17 @@ def scroll_and_scrape(url: str, scroll_pause: float = 2.0) -> list:
     # 4) Extract product details with deduplication
     seen = set()
     results = []
-    cards = driver.find_elements(By.CSS_SELECTOR, "div.thumbnail")
+    cards = driver.find_elements(webdriver.common.by.By.CSS_SELECTOR,
+                                 "div.thumbnail")
     for card in cards:
-        title_el = card.find_element(By.CSS_SELECTOR, "a.title")
-        price_el = card.find_element(By.CSS_SELECTOR, "h4.price")
-        desc_el = card.find_element(By.CSS_SELECTOR, "p.description")
-        stars = card.find_elements(By.CSS_SELECTOR, ".ratings .glyphicon-star")
+        title_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                     "a.title")
+        price_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                     "h4.price")
+        desc_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                    "p.description")
+        stars = card.find_elements(webdriver.common.by.By.CSS_SELECTOR,
+                                   ".ratings .glyphicon-star")
 
         title = title_el.get_attribute("title").strip()
         price = price_el.text.strip()

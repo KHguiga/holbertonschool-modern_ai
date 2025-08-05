@@ -19,7 +19,7 @@ def scrape_product_detail(url, delay=2.0):
     desc_el = driver.find_element(webdriver.common.by.By.CSS_SELECTOR,
                                   ".description")
     stars = driver.find_elements(webdriver.common.by.By.CSS_SELECTOR,
-                                 ".ratings .glyphicon-star")
+                                 ".ratings .ws-icon.ws-icon-star")
 
     result = {
         "title":       title_el.text.strip(),

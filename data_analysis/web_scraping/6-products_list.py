@@ -21,14 +21,14 @@ def scrape_products(url, delay=2.0):
                                      "h4.price")
         desc_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
                                     "p.description")
-        stars = card.find_elements(webdriver.common.by.By.CSS_SELECTOR,
-                                   ".ratings .glyphicon-star")
-
+        rating_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
+                                      ".ratings p[data-rating]").get_attribute(
+                                          "data-rating")
         results.append({
             "title":       title_el.get_attribute("title").strip(),
             "price":       price_el.text.strip(),
             "description": desc_el.text.strip(),
-            "rating":      len(stars),
+            "rating":      int(rating_el),
         })
 
     driver.quit()

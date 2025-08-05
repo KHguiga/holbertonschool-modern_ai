@@ -43,7 +43,7 @@ def scroll_and_scrape(url, scroll_pause=2.0):
         desc_el = card.find_element(webdriver.common.by.By.CSS_SELECTOR,
                                     "p.description")
         stars = card.find_elements(webdriver.common.by.By.CSS_SELECTOR,
-                                   ".ratings .glyphicon-star")
+                                   ".ratings .ws-icon.ws-icon-star")
 
         title = title_el.get_attribute("title").strip()
         price = price_el.text.strip()

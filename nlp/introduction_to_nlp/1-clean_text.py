@@ -2,7 +2,6 @@
 import re
 import html
 import unicodedata
-import emoji  # pip install emoji
 
 
 def normalize_unicode_punct(text):
@@ -16,6 +15,24 @@ def normalize_unicode_punct(text):
     for pattern, repl in replacements.items():
         text = re.sub(pattern, repl, text)
     return text
+
+
+# --- 👇 Replacement for emoji.replace_emoji() ---
+def replace_emoji(text, replace="<EMO>"):
+    """Replace all emoji characters in text with the given placeholder."""
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F600-\U0001F64F"  # emoticons
+        "\U0001F300-\U0001F5FF"  # symbols & pictographs
+        "\U0001F680-\U0001F6FF"  # transport & map symbols
+        "\U0001F1E0-\U0001F1FF"  # flags
+        "\U00002700-\U000027BF"  # dingbats
+        "\U0001F900-\U0001F9FF"  # supplemental symbols & pictographs
+        "\U00002600-\U000026FF"  # misc symbols
+        "\U00002B00-\U00002BFF"  # arrows etc.
+        "]", flags=re.UNICODE
+    )
+    return emoji_pattern.sub(replace, text)
 
 
 def clean_text(text, replace_num=True, replace_url=True, keep_emoji=True):
@@ -44,9 +61,9 @@ def clean_text(text, replace_num=True, replace_url=True, keep_emoji=True):
 
     # Replace emojis with <EMO> placeholder
     if keep_emoji:
-        text = emoji.replace_emoji(text, replace="<EMO>")
+        text = replace_emoji(text, replace="<EMO>")
     else:
-        text = emoji.replace_emoji(text, replace="")
+        text = replace_emoji(text, replace="")
 
     # Collapse repeated punctuation (e.g., !!! → !)
     text = re.sub(r'([!?])\1+', r'\1', text)

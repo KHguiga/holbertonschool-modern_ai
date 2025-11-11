@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-import re
-import html
-import unicodedata
 """
     Task 1
 """
+import re
+import html
+import unicodedata
 
 
 def normalize_unicode_punct(text):

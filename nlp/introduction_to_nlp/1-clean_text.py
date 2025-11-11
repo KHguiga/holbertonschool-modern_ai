@@ -2,6 +2,9 @@
 import re
 import html
 import unicodedata
+"""
+    Task 1
+"""
 
 
 def normalize_unicode_punct(text):
@@ -17,7 +20,6 @@ def normalize_unicode_punct(text):
     return text
 
 
-# --- 👇 Replacement for emoji.replace_emoji() ---
 def replace_emoji(text, replace="<EMO>"):
     """Replace all emoji characters in text with the given placeholder."""
     emoji_pattern = re.compile(

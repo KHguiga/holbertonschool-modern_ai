@@ -8,7 +8,8 @@ import nltk
 nltk.download('stopwords', quiet=True)
 
 
-def remove_stopwords(tokens, language="english", extra_words=None, keep_words=None):
+def remove_stopwords(tokens, language="english", extra_words=None,
+                     keep_words=None):
     """
     Remove stopwords from a list of tokens.
 

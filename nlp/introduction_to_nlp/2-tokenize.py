@@ -3,6 +3,7 @@
     Task 2
 """
 import nltk
+nltk.download("punkt")
 
 
 def tokenize_text(text, method="tweet"):

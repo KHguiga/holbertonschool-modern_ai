@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Task 4 — Filtering
-Low-information token removal (assumes prior cleaning and stopword removal)
+Low info token removal (assumes prior cleaning and stopword removal)
 """
 import re
 

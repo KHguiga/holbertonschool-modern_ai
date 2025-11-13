@@ -7,6 +7,10 @@ from selenium import webdriver
 
 
 def scrape_products(url, delay=2.0):
+    """
+    Clicks a sidebar filter and scrapes the resulting product list.
+    Returns: list_of_product_dicts
+    """
     opts = webdriver.chrome.options.Options()
     opts.add_argument("--headless")
     opts.add_argument('--no-sandbox')

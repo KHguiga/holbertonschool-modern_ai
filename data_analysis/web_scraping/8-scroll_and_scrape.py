@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+    Task 8
+"""
 import time
 from selenium import webdriver
 

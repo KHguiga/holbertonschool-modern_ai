@@ -3,7 +3,7 @@
 Task 4
 """
 import json
-from bs4 import BeautifulSoup
+import bs4
 fetch_html = __import__('0-fetch_html').fetch_html
 
 
@@ -13,7 +13,7 @@ def extract_jsonld(url):
     Returns: ("JSON-LD", list_of_quote_dicts)
     """
     html = fetch_html(url)
-    soup = BeautifulSoup(html, "html.parser")
+    soup = bs4.BeautifulSoup(html, "html.parser")
     results = []
 
     for script in soup.find_all("script", type="application/ld+json"):

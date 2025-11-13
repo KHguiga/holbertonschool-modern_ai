@@ -3,7 +3,7 @@
     Task 5
 """
 import requests
-from bs4 import BeautifulSoup
+import bs4
 
 
 def login_and_scrape(login_url, user, pwd):
@@ -15,7 +15,7 @@ def login_and_scrape(login_url, user, pwd):
     resp = session.get(login_url, timeout=10)
     resp.raise_for_status()
 
-    soup = BeautifulSoup(resp.text, "html.parser")
+    soup = bs4.BeautifulSoup(resp.text, "html.parser")
     token = soup.find("input", attrs={"name": "csrf_token"})["value"]
 
     payload = {
@@ -29,7 +29,7 @@ def login_and_scrape(login_url, user, pwd):
     # After login, scrape the main quotes page (or /hidden if available)
     home = session.get("https://quotes.toscrape.com/", timeout=10)
     home.raise_for_status()
-    soup2 = BeautifulSoup(home.text, "html.parser")
+    soup2 = bs4.BeautifulSoup(home.text, "html.parser")
 
     quotes = []
     for block in soup2.select("div.quote"):

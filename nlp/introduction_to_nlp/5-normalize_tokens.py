@@ -7,6 +7,7 @@ import nltk
 
 
 nltk.download('averaged_perceptron_tagger_eng', quiet=True)
+nltk.download('wordnet', quiet=True)
 
 
 def get_pos(tag):

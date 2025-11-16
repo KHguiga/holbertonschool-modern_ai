@@ -6,6 +6,9 @@ Task 5 — Lemma vs Stem
 import nltk
 
 
+nltk.download('averaged_perceptron_tagger_eng', quiet=True)
+
+
 def get_pos(tag):
     """Map POS tag to WordNet POS for accurate lemmatization."""
     if tag.startswith('J'):

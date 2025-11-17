@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+"""
+Task 6 — NGram
+"""
+
+
 def generate_ngrams(tokens, n=2):
     """
     Generate n-grams from a list of tokens.

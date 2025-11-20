@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-
+"""
+    Task 10 - bag_of_words
+"""
 import sklearn
 import pandas as pd
 
 
 def bag_of_words(corpus_tokens, max_features=5000, ngram_range=(1, 1),
                  min_df=2, max_df=0.9, binary=False):
-
+    """
+    corpus_tokens: list[list[str]]
+    returns: df (DataFrame), vocab (list)
+    """
     # Join tokens into whitespace-separated strings
     docs = [" ".join(doc) for doc in corpus_tokens]
 

@@ -1,4 +1,5 @@
-# 9-bow.py (teacher version)
+#!/usr/bin/env python3
+
 import sklearn
 import pandas as pd
 

@@ -3,7 +3,7 @@
 Task 11 — Word2Vec
 """
 
-from gensim.models import Word2Vec
+import gensim
 
 
 def train_word2vec(corpus_tokens, vector_size=100, window=5,
@@ -24,7 +24,7 @@ def train_word2vec(corpus_tokens, vector_size=100, window=5,
         gensim.models.Word2Vec
     """
 
-    model = Word2Vec(
+    model = gensim.models.Word2Vec(
         sentences=corpus_tokens,
         vector_size=vector_size,
         window=window,

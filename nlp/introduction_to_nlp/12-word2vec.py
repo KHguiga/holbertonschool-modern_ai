@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Task 11 — Word2Vec
+Task 12 — Word2Vec
 """
 
 import gensim

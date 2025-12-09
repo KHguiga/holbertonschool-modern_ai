@@ -4,6 +4,8 @@ Task 3 Data Augmentation
 Simple implementation using only Keras layers
 """
 from tensorflow import keras
+import tensorflow as tf
+tf.random.set_seed(42)
 
 
 def build_data_augmentation():
@@ -12,12 +14,12 @@ def build_data_augmentation():
     """
     data_aug = keras.Sequential([
         # Random horizontal flip
-        keras.layers.RandomFlip("horizontal"),
+        keras.layers.RandomFlip("horizontal", seed=42),
         # Random rotation (±15 degrees)
-        keras.layers.RandomRotation(0.15),
+        keras.layers.RandomRotation(0.15, seed=42),
         # Random zoom (±15%)
-        keras.layers.RandomZoom(0.15),
+        keras.layers.RandomZoom(0.15, seed=42),
         # Random Contrast (±10%)
-        keras.layers.RandomContrast(0.1),
+        keras.layers.RandomContrast(0.1, seed=42),
     ])
     return data_aug

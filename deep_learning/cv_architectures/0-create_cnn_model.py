@@ -7,6 +7,15 @@ from tensorflow import keras
 
 def create_cnn_model(input_shape, filters, kernel_sizes,
                      activations, pooling_type='max'):
+    """
+    Docstring for create_cnn_model
+    
+    :param input_shape: Description
+    :param filters: Description
+    :param kernel_sizes: Description
+    :param activations: Description
+    :param pooling_type: Description
+    """
     model = keras.Sequential()
     model.add(keras.layers.Input(shape=input_shape))
 

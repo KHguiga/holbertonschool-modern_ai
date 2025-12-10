@@ -9,7 +9,6 @@ def create_cnn_model(input_shape, filters, kernel_sizes,
                      activations, pooling_type='max'):
     """
     Docstring for create_cnn_model
-    
     :param input_shape: Description
     :param filters: Description
     :param kernel_sizes: Description

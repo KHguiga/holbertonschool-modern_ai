@@ -1,1 +1,1 @@
-# Computer Vision Architectures (CNN & Deep CNN)
+# Computer Vision Architectures

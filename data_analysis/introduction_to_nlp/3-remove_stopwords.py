@@ -5,7 +5,7 @@
 import nltk
 
 # Ensure stopwords are downloaded (students should know this)
-nltk.download('stopwords', quiet=True)
+# nltk.download('stopwords', quiet=True)
 
 
 def remove_stopwords(tokens, language="english", extra_words=None,

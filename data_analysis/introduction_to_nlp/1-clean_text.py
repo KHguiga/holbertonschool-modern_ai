@@ -5,6 +5,7 @@
 import re
 import html
 import unicodedata
+import emoji
 
 
 def normalize_unicode_punct(text):
@@ -51,6 +52,9 @@ def clean_text(text, replace_num=True, replace_url=True, keep_emoji=True):
     text = str(text).lower().strip()
     text = html.unescape(text)
     text = unicodedata.normalize("NFKD", text)
+
+    message = emoji.emojize("Python is :thumbs_up: and I :red_heart: it.")
+    print(message)
 
     # Normalize Unicode punctuation to ASCII
     text = normalize_unicode_punct(text)

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Task 3 Data Augmentation
-Simple implementation using only Keras layers
 """
 from tensorflow import keras
 import tensorflow as tf
@@ -10,7 +9,7 @@ tf.random.set_seed(42)
 
 def build_data_augmentation():
     """
-    Builds a simple data augmentation pipeline using only Keras layers
+    Builds a data augmentation pipeline using Keras layers
     """
     data_aug = keras.Sequential([
         # Random horizontal flip

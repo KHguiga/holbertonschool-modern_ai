@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+    Task 6
+"""
 from tensorflow import keras
 mobilenet_backbone = __import__('5-mobilenet_backbone'
                                 ).mobilenet_backbone

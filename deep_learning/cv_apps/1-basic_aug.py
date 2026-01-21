@@ -21,7 +21,7 @@ def basic_aug(image, bboxes, labels):
             A.ShiftScaleRotate(
                 shift_limit=0.1,
                 scale_limit=0.1,
-                rotate_limit=10,
+                rotate_limit=[-30, 0],
                 p=1
             )
         ],

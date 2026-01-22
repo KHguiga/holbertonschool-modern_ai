@@ -2,7 +2,6 @@
 """
     Task 2
 """
-from ultralytics import YOLO
 import albumentations as A
 import numpy as np
 

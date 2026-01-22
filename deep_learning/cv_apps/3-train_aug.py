@@ -22,7 +22,30 @@ def train_with_augmentation(data_yaml, model="yolov8n.pt", aug=None,
     if custom_albu is not None:
         train_kwargs["augmentations"] = custom_albu
 
-    results = model.train(**train_kwargs, save=False,
-                          plots=False, verbose=False)
+    model.train(
+        data=data_yaml,
+        epochs=1,
+        imgsz=640,
+        batch=1,
+        device="cpu",
+        workers=0,
+        augment=False,
+        mosaic=0.0,
+        mixup=0.0,
+        copy_paste=0.0,
+        hsv_h=0.0,
+        hsv_s=0.0,
+        hsv_v=0.0,
+        degrees=0.0,
+        translate=0.0,
+        scale=0.0,
+        shear=0.0,
+        perspective=0.0,
+        fliplr=0.0,
+        flipud=0.0,
+        erasing=0.0,
+        save=False,
+        plots=False,
+        verbose=False)
 
     return model, results

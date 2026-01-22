@@ -18,10 +18,10 @@ def basic_aug(image, bboxes, labels):
         [
             A.HorizontalFlip(p=0.5),
             A.RandomBrightnessContrast(p=0.2),
-            A.ShiftScaleRotate(
-                shift_limit=0.1,
-                scale_limit=0.1,
-                rotate_limit=[-30, 0],
+            A.Affine(
+                translate_percent=0.1,
+                scale=0.9,
+                rotate=[-30, 0],
                 p=1
             )
         ],

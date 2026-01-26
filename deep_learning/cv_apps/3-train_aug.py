@@ -22,7 +22,7 @@ def train_with_augmentation(data_yaml, model="yolov8n.pt", aug=None,
     if custom_albu is not None:
         train_kwargs["augmentations"] = custom_albu
 
-    model.train(
+    results = model.train(
         data=data_yaml,
         epochs=1,
         imgsz=640,

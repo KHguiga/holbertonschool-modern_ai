@@ -1,53 +1,56 @@
 #!/usr/bin/env python3
-"""
-Task 3
-"""
 from ultralytics import YOLO
 
 
-def train_with_augmentation(data_yaml, model="yolov8n.pt", aug=None,
-                            custom_albu=None, epochs=10, imgsz=640, batch=16):
-    """
-    trains a YOLO model using data augmentation and allows custom
-    Albumentations transforms to be applied during training.
-    """
-    model = YOLO(model, verbose=False)
+def train_with_augmentation(
+    data,
+    model_path="yolov8n.pt",
+    epochs=10,
+    imgsz=640,
+    batch=16,
+    augmentation=True,
+    yolo_aug_params=None,
+    albumentations_transforms=None,
+    save=False,
+    plots=False,
+    verbose=False,
+):
 
-    train_kwargs = {"data": data_yaml, "epochs": epochs,
-                    "imgsz": imgsz, "batch": batch}
+    model = YOLO(model_path)
 
-    if aug is not None:
-        train_kwargs["augmentations"] = aug
+    # Base arguments
+    train_kwargs = dict(
+        data=data,
+        epochs=epochs,
+        imgsz=imgsz,
+        batch=batch,
+        save=save,
+        plots=plots,
+        verbose=verbose,
+    )
 
-    if custom_albu is not None:
-        train_kwargs["augmentations"] = custom_albu
+    # Custom Albumentations
+    if albumentations_transforms is not None:
+        train_kwargs["augmentations"] = albumentations_transforms
 
-    results = model.train(
-        data=data_yaml,
-        epochs=1,
-        imgsz=640,
-        batch=1,
-        device="cpu",
-        workers=0,
-        augment=False,
-        auto_augment=None,
-        mosaic=0.0,
-        mixup=0.0,
-        copy_paste=0.0,
-        hsv_h=0.0,
-        hsv_s=0.0,
-        hsv_v=0.0,
-        degrees=0.0,
-        translate=0.0,
-        scale=0.0,
-        shear=0.0,
-        perspective=0.0,
-        fliplr=0.0,
-        flipud=0.0,
-        erasing=0.0,
-        fraction=0.01,
-        save=False,
-        plots=False,
-        verbose=False)
+    # Custom YOLO augment params
+    elif yolo_aug_params is not None:
+        train_kwargs.update(yolo_aug_params)
 
+    # Disable augmentation
+    elif not augmentation:
+        train_kwargs.update(
+            hsv_h=0.0,
+            hsv_s=0.0,
+            hsv_v=0.0,
+            translate=0.0,
+            scale=0.0,
+            fliplr=0.0,
+            mosaic=0.0,
+            erasing=0.0,
+            auto_augment=None,
+        )
+
+    # Train
+    results = model.train(**train_kwargs)
     return model, results

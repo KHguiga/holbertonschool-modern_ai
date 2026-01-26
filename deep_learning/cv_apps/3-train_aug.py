@@ -11,7 +11,7 @@ def train_with_augmentation(data_yaml, model="yolov8n.pt", aug=None,
     trains a YOLO model using data augmentation and allows custom
     Albumentations transforms to be applied during training.
     """
-    model = YOLO(model, verbose=False)
+    model = YOLO(model)
 
     train_kwargs = {"data": data_yaml, "epochs": epochs,
                     "imgsz": imgsz, "batch": batch}
@@ -44,6 +44,7 @@ def train_with_augmentation(data_yaml, model="yolov8n.pt", aug=None,
         fliplr=0.0,
         flipud=0.0,
         erasing=0.0,
+        fraction=0.01,
         save=False,
         plots=False,
         verbose=False)

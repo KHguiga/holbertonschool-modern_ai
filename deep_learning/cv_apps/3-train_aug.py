@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+    Task 2
+"""
 from ultralytics import YOLO
 
 
@@ -15,6 +18,21 @@ def train_with_augmentation(
     plots=False,
     verbose=False,
 ):
+    """
+    Docstring for train_with_augmentation
+    
+    :param data: Description
+    :param model_path: Description
+    :param epochs: Description
+    :param imgsz: Description
+    :param batch: Description
+    :param augmentation: Description
+    :param yolo_aug_params: Description
+    :param albumentations_transforms: Description
+    :param save: Description
+    :param plots: Description
+    :param verbose: Description
+    """
 
     model = YOLO(model_path, verbose=False)
 

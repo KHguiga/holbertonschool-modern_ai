@@ -16,7 +16,7 @@ def train_with_augmentation(
     verbose=False,
 ):
 
-    model = YOLO(model_path)
+    model = YOLO(model_path, verbose=False)
 
     # Base arguments
     train_kwargs = dict(

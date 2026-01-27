@@ -20,7 +20,7 @@ def train_with_augmentation(
 ):
     """
     Docstring for train_with_augmentation
-    
+
     :param data: Description
     :param model_path: Description
     :param epochs: Description

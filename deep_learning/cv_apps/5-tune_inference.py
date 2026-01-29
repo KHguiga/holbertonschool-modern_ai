@@ -21,7 +21,7 @@ def inference_tuning(data_yaml, model="yolov8n.pt", imgsz=640,
     Returns:
         list of dicts with inference parameters and val scores.
     """
-    yolo_model = YOLO(model)
+    yolo_model = YOLO(model, verbose=False)
 
     results = []
 

@@ -35,7 +35,8 @@ def inference_tuning(data_yaml, model="yolov8n.pt", imgsz=640,
                 "iou": iou
             }
 
-            metrics = yolo_model.val(**val_kwargs)
+            metrics = yolo_model.val(**val_kwargs, verbose=False,
+                                     batch=2, plots=False, workers=0)
 
             # Safely extract mAP metrics
             map50 = None

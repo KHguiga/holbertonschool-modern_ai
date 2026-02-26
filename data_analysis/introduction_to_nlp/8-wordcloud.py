@@ -21,10 +21,10 @@ def generate_wordcloud(corpus_tokens, max_words=200, label=None):
         WordCloud object
     """
 
-    # Flatten corpus: list of documents -> single list of tokens
+    # Flatten corpus from list of docsto one list of tokens
     all_tokens = [tok for doc in corpus_tokens for tok in doc]
 
-    # Join into text: WordCloud expects one big string
+    # Join into text since WordCloud expects string
     text = " ".join(all_tokens)
 
     # Create wordcloud

@@ -20,8 +20,7 @@ def plot_missingness(df):
     plt.scatter(
         row_ind,
         col_ind,
-        marker='|',
-        color='blue'
+        marker='|'
     )
 
     plt.title("Missingness Plot")

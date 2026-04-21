@@ -6,18 +6,15 @@ import re
 import emoji
 
 
-# GIVEN
 _DATASET_PLACEHOLDER_MAP = {
     '<#>':       '<NUM>',
     '<decimal>': '<NUM>',
     '<time>':    '<TIME>',
     '<url>':     '<URL>',
     '<email>':   '<EMAIL>',
-    '<ukp>':     '<NUM>',
 }
 
 
-# GIVEN
 def normalize_unicode_punct(text):
     """Replace curly quotes, dashes, ellipses, etc. with ASCII equivalents."""
     replacements = {
@@ -31,7 +28,6 @@ def normalize_unicode_punct(text):
     return text
 
 
-# STUDENT IMPLEMENTS
 def clean_text(text, replace_num=True,
                replace_url=True, emoji_action="replace"):
     """

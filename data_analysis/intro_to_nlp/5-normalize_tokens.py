@@ -5,11 +5,9 @@
 import re
 import nltk
 
-# GIVEN
 _PLACEHOLDER_RE = re.compile(r'^<[A-Za-z]+>$')
 
 
-# GIVEN
 def get_pos(tag):
     """Map a Penn Treebank POS tag to a WordNet POS constant."""
     if tag.startswith('J'):
@@ -23,18 +21,19 @@ def get_pos(tag):
     return nltk.corpus.wordnet.NOUN
 
 
-# STUDENT IMPLEMENTS
 def normalize_tokens(tokens, method="lemmatize"):
     if method not in {"lemmatize", "stem"}:
         raise ValueError("method must be 'lemmatize' or 'stem'")
 
     if method == "stem":
         stemmer = nltk.stem.PorterStemmer()
-        return [t if _PLACEHOLDER_RE.match(t) else stemmer.stem(t) for t in tokens]
+        return [t if _PLACEHOLDER_RE.match(t)
+                else stemmer.stem(t) for t in tokens]
 
     lemmatizer = nltk.stem.WordNetLemmatizer()
     tagged = nltk.pos_tag(tokens)
     return [
-        t if _PLACEHOLDER_RE.match(t) else lemmatizer.lemmatize(word, get_pos(pos))
+        t if _PLACEHOLDER_RE.match(t)
+        else lemmatizer.lemmatize(word, get_pos(pos))
         for t, (word, pos) in zip(tokens, tagged)
     ]

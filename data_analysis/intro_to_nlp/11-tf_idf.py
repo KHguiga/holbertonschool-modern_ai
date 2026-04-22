@@ -2,7 +2,7 @@
 """
     Task 11 — TF-IDF
 """
-import sklearn.feature_extraction.text
+import sklearn
 
 
 def tf_idf(corpus_tokens, max_features=5000, ngram_range=(1, 2),

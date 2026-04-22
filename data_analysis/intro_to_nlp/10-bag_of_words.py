@@ -2,7 +2,7 @@
 """
     Task 10 — Bag of Words
 """
-import sklearn.feature_extraction.text
+import sklearn
 
 
 def bag_of_words(corpus_tokens, max_features=5000, ngram_range=(1, 2),

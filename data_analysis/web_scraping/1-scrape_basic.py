@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module for basic static web scraping.
+    Task 1
 """
 from bs4 import BeautifulSoup
 fetch_html = __import__('0-fetch_html').fetch_html
@@ -8,37 +8,21 @@ fetch_html = __import__('0-fetch_html').fetch_html
 
 def scrape_basic(url):
     """
-    Scrapes the first page of quotes from quotes.toscrape.com.
-
-    This function fetches the HTML content from the given URL,
-    parses it using BeautifulSoup, and extracts quote information
-    including text, author, and associated tags.
-
-    Args:
-        url (str): The Quotes List endpoint URL
-
-    Returns:
-        list: A list of dictionaries, where each dictionary contains:
-              - text (str): The quote text
-              - author (str): The quote's author
-              - tags (list): A list of tag strings
+    Uses fetch_html() to scrape the first page of quotes.toscrape.com.
+    - url: the Quotes List endpoint (e.g. 'https://quotes.toscrape.com/')
+    - Must extract for each quote:
+      * 'text': the quote text
+      * 'author': the quote's author
+      * 'tags': list of tag strings
+    - No regular expressions allowed.
+    Returns: list of dicts.
     """
-
-    html = fetch_html(url)
-    soup = BeautifulSoup(html, 'html.parser')
-
-    quotes = []
-    quote_blocks = soup.find_all('div', class_='quote')
-
-    for block in quote_blocks:
-        text = block.find('span', class_='text').get_text()
-        author = block.find('small', class_='author').get_text()
-        tags = [tag.get_text() for tag in block.find_all('a', class_='tag')]
-
-        quotes.append({
-            "text": text,
-            "author": author,
-            "tags": tags
-        })
-
-    return quotes
+    html = fetch_html(url, headers={"User-Agent": "scraper"}, timeout=10)
+    soup = BeautifulSoup(html, "html.parser")
+    results = []
+    for q in soup.select("div.quote"):
+        text = q.select_one("span.text").get_text(strip=True)
+        author = q.select_one("small.author").get_text(strip=True)
+        tags = [t.get_text(strip=True) for t in q.select("div.tags a.tag")]
+        results.append({"text": text, "author": author, "tags": tags})
+    return results

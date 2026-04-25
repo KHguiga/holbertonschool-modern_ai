@@ -29,7 +29,7 @@ def plot_top_n_frequencies(corpus_tokens, n=20):
 
     plt.figure(figsize=(12, 5))
     plt.bar(words, counts)
-    plt.xticks(rotation=45, ha="right")
+    plt.xticks(rotation=45)
     plt.title(f"Top {n} Most Frequent Words")
     plt.xlabel("Word")
     plt.ylabel("Frequency")

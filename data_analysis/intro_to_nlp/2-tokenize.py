@@ -24,12 +24,11 @@ EMOTICON_MAP = {
 
 def normalize_emoticons(tokens, emoticon_action="replace"):
     """
-    Replace or remove text emoticons isolated as single tokens by TweetTokenizer.
-    Must run immediately after tokenize_text().
+    Replace or drop txt emoticons shown as single tokens by TweetTokenizer.
 
     Args:
         tokens          : list of tokens
-        emoticon_action : "replace" → <EMO> | "remove" → drop | "keep" → untouched
+        emoticon_action : "replace" → <EMO> | "remove" → drop
     """
     if not isinstance(tokens, list):
         return []

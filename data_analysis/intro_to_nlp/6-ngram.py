@@ -6,6 +6,9 @@ import nltk
 
 
 def generate_ngrams(tokens, n=2):
+    """
+    Task 6 — N-gram Generation using nltk
+    """
     if not isinstance(tokens, list) or len(tokens) < n:
         return []
 

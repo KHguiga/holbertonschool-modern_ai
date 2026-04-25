@@ -7,6 +7,9 @@ import nltk
 
 def remove_stopwords(tokens, language="english", extra_words=None,
                      keep_words=None):
+    """
+    Task 3 — Stopwords
+    """
     if not isinstance(tokens, list):
         return []
 

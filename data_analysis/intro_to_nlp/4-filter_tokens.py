@@ -8,6 +8,9 @@ _PLACEHOLDER_RE = re.compile(r'^<[A-Za-z]+>$')
 
 
 def filter_tokens(tokens, min_len=2, strip_hashtag=False):
+    """
+    Task 4 — Token Filtering
+    """
     if not tokens:
         return []
 

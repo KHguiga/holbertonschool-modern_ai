@@ -22,6 +22,10 @@ def get_pos(tag):
 
 
 def normalize_tokens(tokens, method="lemmatize"):
+    """
+    Task 5 — Token Normalisation
+    Stemming vs Lemmatization
+    """
     if method not in {"lemmatize", "stem"}:
         raise ValueError("method must be 'lemmatize' or 'stem'")
 

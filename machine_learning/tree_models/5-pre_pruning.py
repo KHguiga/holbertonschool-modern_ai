@@ -2,7 +2,7 @@
 """
 Task 5: Pre-Pruning
 """
-from sklearn.model_selection import GridSearchCV
+from sklearn import model_selection
 
 def prepruning(X, y, clf):
     params_grid = {
@@ -11,6 +11,6 @@ def prepruning(X, y, clf):
         'min_samples_leaf': range(1, 5),
         'min_samples_split': range(1, 5)
     }
-    g_cv = GridSearchCV(clf, param_grid=params_grid)
+    g_cv = model_selection.GridSearchCV(clf, param_grid=params_grid)
     g_cv.fit(X=X, y=y)
     return g_cv.best_params_
